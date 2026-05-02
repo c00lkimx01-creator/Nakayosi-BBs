@@ -1,0 +1,12 @@
+{
+  "name": "nakayosi-chat",
+  "version": "1.0.0",
+  "scripts": {
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install",
+    "build": "cd client && npm run build",
+    "start": "cd server && node index.js",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm start",
+    "postinstall": "cd server && npm install && cd ../client && npm install"
+  }
+}

@@ -1,0 +1,149 @@
+# 🏮 Nakayosi Chat (なかよしチャット)
+
+リアルタイムチャットアプリです。部屋を作成して、みんなとリアルタイムでチャットを楽しめます。
+
+---
+
+## 📦 プロジェクト構成
+
+```
+nakayosi-chat/
+├── server/          # Node.js + Express + Socket.io バックエンド
+│   ├── index.js
+│   └── package.json
+├── client/          # React フロントエンド
+│   ├── src/
+│   │   ├── App.js
+│   │   ├── App.css
+│   │   └── index.js
+│   ├── public/
+│   │   └── index.html
+│   └── package.json
+├── render.yaml      # Render デプロイ設定
+├── vercel.json      # Vercel デプロイ設定
+└── package.json
+```
+
+---
+
+## ✨ 機能一覧
+
+| 機能 | 説明 |
+|------|------|
+| ログイン / 新規登録 | 名前・パスワードでアカウント管理。同名は使用不可 |
+| 管理者ログイン | ログイン時に管理者パスワードを入力することで管理者になれる |
+| チャットルーム | 部屋を作成して、複数の部屋でチャット可能 |
+| リアルタイムチャット | Socket.io によるリアルタイム通信 |
+| 読み上げ機能 | Web Speech API でメッセージを読み上げ |
+| ダーク / ライトモード | 設定から切り替え可能 |
+| /おみくじ | 大吉〜大凶のおみくじを引ける |
+| 管理者コマンド | /kick, /ban, /unban, /unkick など |
+
+---
+
+## 🔑 管理者パスワード
+
+```
+yuj88433
+```
+
+ログイン画面の「管理者パスワード」欄に入力してください。
+
+---
+
+## 💻 コマンド一覧
+
+### 全ユーザー
+```
+/おみくじ    おみくじを引く
+/help       コマンド一覧を表示
+```
+
+### 管理者のみ
+```
+/kick [ユーザー名] [日数]    指定日数KICKする
+/ban [ユーザー名]            BANする（ログイン不可）
+/unban [ユーザー名]          BANを解除する
+/unkick [ユーザー名]         KICKを解除する
+/users                       オンラインユーザー一覧
+```
+
+---
+
+## 🚀 ローカル起動
+
+### 1. 依存パッケージのインストール
+
+```bash
+cd server && npm install
+cd ../client && npm install
+```
+
+### 2. サーバー起動（ポート3001）
+
+```bash
+cd server
+npm start
+# または開発モード
+npm run dev
+```
+
+### 3. クライアント起動（ポート3000）
+
+別ターミナルで:
+```bash
+cd client
+npm start
+```
+
+ブラウザで http://localhost:3000 を開く。
+
+---
+
+## ☁️ デプロイ方法
+
+### Render（推奨・簡単）
+
+1. [render.com](https://render.com) にサインアップ
+2. 「New Web Service」→ GitHubリポジトリを選択
+3. 設定:
+   - **Build Command**: `cd client && npm install && npm run build && cd ../server && npm install`
+   - **Start Command**: `cd server && node index.js`
+4. 「Create Web Service」をクリック
+
+### CodeSandbox
+
+1. [codesandbox.io](https://codesandbox.io) で「Import from GitHub」
+2. リポジトリURLを入力してインポート
+3. ターミナルで `npm run install:all` → `npm start`
+4. `.env`で`REACT_APP_SERVER_URL`をサーバーURLに設定
+
+### Vercel（フロントエンド） + Render（バックエンド）
+
+1. Renderでバックエンドをデプロイ（上記参照）
+2. `client/.env`を作成:
+   ```
+   REACT_APP_SERVER_URL=https://your-render-url.onrender.com
+   ```
+3. Vercelで`client`フォルダのみデプロイ
+
+---
+
+## 🛠 技術スタック
+
+- **バックエンド**: Node.js, Express, Socket.io, bcryptjs
+- **フロントエンド**: React 18, Socket.io-client, Web Speech API
+- **スタイル**: Pure CSS（カスタムプロパティによるダーク/ライトモード）
+
+---
+
+## ⚠️ 注意事項
+
+- データはメモリ上に保存されます。サーバー再起動でリセットされます
+- 本番運用する場合はMongoDBやPostgreSQLなどのDBへの移行を推奨します
+
+---
+
+## 📄 ライセンス
+
+MIT
